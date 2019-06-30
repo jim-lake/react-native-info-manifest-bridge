@@ -22,7 +22,7 @@
 #### Android
 
 1. Open up `android/app/src/main/java/[...]/MainActivity.java`
-  - Add `import com.reactlibrary.RNInfoManifestBridgePackage;` to the imports at the top of the file
+  - Add `import com.jimlake.RNInfoManifestBridgePackage;` to the imports at the top of the file
   - Add `new RNInfoManifestBridgePackage()` to the list returned by the `getPackages()` method
 2. Append the following lines to `android/settings.gradle`:
   	```
@@ -34,14 +34,6 @@
       compile project(':react-native-info-manifest-bridge')
   	```
 
-#### Windows
-[Read it! :D](https://github.com/ReactWindows/react-native)
-
-1. In Visual Studio add the `RNInfoManifestBridge.sln` in `node_modules/react-native-info-manifest-bridge/windows/RNInfoManifestBridge.sln` folder to their solution, reference from their app.
-2. Open up your `MainPage.cs` app
-  - Add `using Info.Manifest.Bridge.RNInfoManifestBridge;` to the usings at the top of the file
-  - Add `new RNInfoManifestBridgePackage()` to the `List<IReactPackage>` returned by the `Packages` method
-
 
 ## Usage
 ```javascript
@@ -50,4 +42,3 @@ import RNInfoManifestBridge from 'react-native-info-manifest-bridge';
 // TODO: What to do with the module?
 RNInfoManifestBridge;
 ```
-  

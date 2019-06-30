@@ -1,5 +1,6 @@
 
 #import <React/RCTBridgeModule.h>
+#import <UIKit/UIKit.h>
 
 @interface RNInfoManifestBridge : NSObject <RCTBridgeModule>
 
@@ -14,8 +15,6 @@ RCT_EXPORT_MODULE()
 }
 
 - (NSDictionary *)constantsToExport {
-  NSLog(@"constantsToExport");
-
   NSBundle *mainBundle = [NSBundle mainBundle];
   NSString *displayName = [mainBundle objectForInfoDictionaryKey:@"CFBundleDisplayName"];
   if (displayName == nil) {
