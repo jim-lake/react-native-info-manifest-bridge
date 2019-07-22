@@ -1,4 +1,4 @@
-package com.jimlake;
+package com.jimlake.infomanifestbridge;
 
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
