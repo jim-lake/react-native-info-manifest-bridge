@@ -7,11 +7,14 @@ import com.facebook.react.bridge.Callback;
 
 import javax.annotation.Nullable;
 import java.util.Map;
+import java.util.Locale;
 import java.util.HashMap;
 
+import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.telephony.TelephonyManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -62,11 +65,18 @@ public class RNInfoManifestBridgeModule extends ReactContextBaseJavaModule {
       Log.e(TAG,"Failed to pull from package info",e);
     }
 
-    constants.put("androidDeviceName",getDeviceName());
+    final String deviceName = _getDeviceName();
+    final String language = Locale.getDefault().getLanguage().toLowerCase();
+    final String country = _getCountry();
+    constants.put("androidVersion",Build.VERSION.RELEASE);
+    constants.put("androidDeviceName",deviceName);
+    constants.put("language",language);
+    constants.put("country",country);
+
     return constants;
   }
 
-  private String getDeviceName() {
+  private String _getDeviceName() {
     final String brand = Build.BRAND; //= "motorola"
     final String model = Build.MODEL; //= "XT1053"
 
@@ -78,4 +88,25 @@ public class RNInfoManifestBridgeModule extends ReactContextBaseJavaModule {
     }
     return deviceType;
   }
+
+  private String _getCountry() {
+    String country = Locale.getDefault().getCountry();
+
+    try {
+      final TelephonyManager tm = (TelephonyManager)reactContext.getSystemService(Context.TELEPHONY_SERVICE);
+      final String simCountry = tm.getSimCountryIso();
+      if (simCountry != null && simCountry.length() == 2) {
+        country = simCountry;
+      } else {
+        final String networkCountry = tm.getNetworkCountryIso();
+        if (networkCountry != null && networkCountry.length() == 2) {
+          country = networkCountry;
+        }
+      }
+    } catch(final Exception e) {
+      Log.e(TAG,"getCountry: get network country failed",e);
+    }
+    return country.toUpperCase();
+  }
+
 }

@@ -1,6 +1,6 @@
 {
   "name": "react-native-info-manifest-bridge",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -10,8 +10,5 @@
     "react-native"
   ],
   "author": "Jim Lake",
-  "license": "MIT",
-  "peerDependencies": {
-    "react-native": "^0.41.2"
-  }
+  "license": "MIT"
 }

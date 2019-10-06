@@ -1,6 +1,7 @@
 
 #import <React/RCTBridgeModule.h>
 #import <UIKit/UIKit.h>
+#import <sys/utsname.h>
 
 @interface RNInfoManifestBridge : NSObject <RCTBridgeModule>
 
@@ -23,6 +24,11 @@ RCT_EXPORT_MODULE()
 
   NSString *iosVersion = [[UIDevice currentDevice] systemVersion];
   NSString *iosDeviceName = [[UIDevice currentDevice] name];
+  NSString *iosDeviceFamily = [UIDevice currentDevice].model;
+  struct utsname systemInfo;
+  uname(&systemInfo);
+  NSString *iosSystemInfoMachine = [NSString stringWithCString:systemInfo.machine encoding:NSUTF8StringEncoding];
+
   NSString *version = [mainBundle objectForInfoDictionaryKey:@"CFBundleVersion"];
   NSString *shortVersion = [mainBundle objectForInfoDictionaryKey:@"CFBundleShortVersionString"];
   NSString *bundleIdentifier = [mainBundle objectForInfoDictionaryKey:@"CFBundleIdentifier"];
@@ -39,6 +45,14 @@ RCT_EXPORT_MODULE()
   [ret setObject:displayName forKey:@"displayName"];
   [ret setObject:iosVersion forKey:@"iosVersion"];
   [ret setObject:iosDeviceName forKey:@"iosDeviceName"];
+  [ret setObject:iosDeviceFamily forKey:@"iosDeviceFamily"];
+  [ret setObject:iosSystemInfoMachine forKey:@"iosSystemInfoMachine"];
+
+  NSLocale *currentLocale = [NSLocale currentLocale];
+  NSString *country = [[currentLocale objectForKey:NSLocaleCountryCode] copy];
+  NSString *language = [[currentLocale objectForKey:NSLocaleLanguageCode] copy];
+  [ret setObject:country forKey:@"country"];
+  [ret setObject:language forKey:@"language"];
 
   return ret;
 }
