@@ -1,7 +1,7 @@
 
 Pod::Spec.new do |s|
   s.name         = "RNInfoManifestBridge"
-  s.version      = "1.0.0"
+  s.version      = "1.0.8"
   s.summary      = "RNInfoManifestBridge"
   s.description  = "React Native bridge for info.plist and Android manifest values"
   s.homepage     = "https://github.com/jim-lake/react-native-info-manfiest-bridge"
