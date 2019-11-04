@@ -25,6 +25,8 @@ RCT_EXPORT_MODULE()
   NSString *iosVersion = [[UIDevice currentDevice] systemVersion];
   NSString *iosDeviceName = [[UIDevice currentDevice] name];
   NSString *iosDeviceFamily = [UIDevice currentDevice].model;
+  NSString *idfv = [[[[UIDevice currentDevice] identifierForVendor] UUIDString] copy];
+
   struct utsname systemInfo;
   uname(&systemInfo);
   NSString *iosSystemInfoMachine = [NSString stringWithCString:systemInfo.machine encoding:NSUTF8StringEncoding];
@@ -47,6 +49,7 @@ RCT_EXPORT_MODULE()
   [ret setObject:iosDeviceName forKey:@"iosDeviceName"];
   [ret setObject:iosDeviceFamily forKey:@"iosDeviceFamily"];
   [ret setObject:iosSystemInfoMachine forKey:@"iosSystemInfoMachine"];
+  [ret setObject:idfv forKey:@"idfv"];
 
   NSLocale *currentLocale = [NSLocale currentLocale];
   NSString *country = [[currentLocale objectForKey:NSLocaleCountryCode] copy];

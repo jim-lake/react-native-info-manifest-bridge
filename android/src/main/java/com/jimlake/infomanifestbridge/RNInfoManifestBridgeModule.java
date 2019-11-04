@@ -10,10 +10,12 @@ import java.util.Map;
 import java.util.Locale;
 import java.util.HashMap;
 
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.provider.Settings;
 import android.telephony.TelephonyManager;
 import android.os.Build;
 import android.os.Bundle;
@@ -72,6 +74,14 @@ public class RNInfoManifestBridgeModule extends ReactContextBaseJavaModule {
     constants.put("androidDeviceName",deviceName);
     constants.put("language",language);
     constants.put("country",country);
+
+    try {
+      final ContentResolver resolver = reactContext.getContentResolver();
+      final String androidId = Settings.Secure.getString(resolver,Settings.Secure.ANDROID_ID);
+      constants.put("androidId",androidId);
+    } catch (final Exception e) {
+      Log.e(TAG,"Failed to pull from androidId",e);
+    }
 
     return constants;
   }
